@@ -64,3 +64,4 @@ QC <- function(x,label){
     return(meta.Tx)
   }
 }
+meta.Ho <- QC("Ho")
