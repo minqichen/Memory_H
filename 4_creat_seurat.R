@@ -22,8 +22,6 @@ nn<-as.matrix( imap_20k[1,])
 colnames(imap_20k)<-nn;imap_20k<-imap_20k[-1,]
 imap_20k<-imap_20k[,order(colnames(imap_20k))]
 colnames(imap_20k)
-colnames(imap_20k)[332:444]<-sprintf('Tcm.L_%04d',c(1:113))
-colnames(imap_20k)[445:493]<-sprintf('Tcm.S_%04d',c(1:49))
 
 ANNO<-read.csv('cellInfo1112.csv')
 rownames(ANNO)<-ANNO[,1]
@@ -46,26 +44,12 @@ col<-c(HSC ="#f0c7b2",CMP="#97dba5",CLP="#b4c5fa",CD4T="#595ee6",
 
 imap_20_fil <- CreateSeuratObject(counts = imap_20k, project = "imap", min.cells = 3)
 
-
-imap_20_fil[["percent.mt"]] <- PercentageFeatureSet(object = imap_20_fil, pattern = "^mt")
-VlnPlot(object = imap_20_fil,features = c("nFeature_RNA", "nCount_RNA", "percent.mt"), ncol = 3,pt.size = 0.5)
-
-
 saveRDS(imap_20_fil,'imap_20_fil.RDS')
-
-
-pdf('./Dimplot/VlnPlot_QC.pdf',width = 20,height = 4)
-VlnPlot(object = imap_20_fil,features = c("nFeature_RNA", "nCount_RNA", "percent.mt"),
-        ncol = 3,pt.size = 0.5,group.by = 'orig.ident',cols =col)
-dev.off()
-# Normalizing the data
 
 imap_20_fil<-NormalizeData(imap_20_fil, normalization.method = "LogNormalize", scale.factor = 10000)
 
-
 # Identification of highly variable features (feature selection)
 imap_20_fil <- FindVariableFeatures(imap_20_fil, selection.method = "vst", nfeatures = 5000)
-
 imap_20_fil <- ScaleData(imap_20_fil, verbose = FALSE)
 imap_20_fil <- RunPCA(imap_20_fil, npcs = 30, verbose = FALSE)
   
