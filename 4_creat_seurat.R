@@ -44,16 +44,13 @@ rownames(imap_20k_1)<-rownames(imap_20k)
 col<-c(HSC ="#f0c7b2",CMP="#97dba5",CLP="#b4c5fa",CD4T="#595ee6",
        CD8T ="#5992e6",T.HSC ='#faeb1b' ,Tcm.S ='#edc2b2',Tcm.L='#e33232')
 
-imap_20 <- CreateSeuratObject(counts = imap_20k, project = "imap", min.cells = 3)
+imap_20_fil <- CreateSeuratObject(counts = imap_20k, project = "imap", min.cells = 3)
 
 
-imap_20[["percent.mt"]] <- PercentageFeatureSet(object = imap_20, pattern = "^mt")
-VlnPlot(object = imap_20,features = c("nFeature_RNA", "nCount_RNA", "percent.mt"), ncol = 3,pt.size = 0.5)
-imap_20_fil<-imap_20
-# filter data
-imap_20_fil <- subset(imap_20, subset = nFeature_RNA >5000 & nFeature_RNA < 10000 & percent.mt < 5)
-imap_20_fil
-saveRDS(imap_20,'imap_20.RDS')
+imap_20_fil[["percent.mt"]] <- PercentageFeatureSet(object = imap_20_fil, pattern = "^mt")
+VlnPlot(object = imap_20_fil,features = c("nFeature_RNA", "nCount_RNA", "percent.mt"), ncol = 3,pt.size = 0.5)
+
+
 saveRDS(imap_20_fil,'imap_20_fil.RDS')
 
 
