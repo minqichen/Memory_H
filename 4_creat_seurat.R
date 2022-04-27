@@ -14,7 +14,7 @@ py_config()
 py_module_available("umap")
 library(PythonInR)
 
-imap_20k<-read.csv('output11.csv',header = F)
+imap_20k<-read.csv('output112.csv',header = F)
 imap_20k<-as.data.frame(t(imap_20k))
 rownames(imap_20k)<-imap_20k[,1]
 imap_20k<-imap_20k[,-1]
