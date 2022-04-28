@@ -23,12 +23,6 @@ colnames(imap_20k)<-nn;imap_20k<-imap_20k[-1,]
 imap_20k<-imap_20k[,order(colnames(imap_20k))]
 colnames(imap_20k)
 
-ANNO<-read.csv('cellInfo1112.csv')
-rownames(ANNO)<-ANNO[,1]
-ANNO1<-as.data.frame(ANNO[,2]) 
-rownames(ANNO1)<-rownames(ANNO)
-colnames(ANNO1)<-'CellType'
-
 library(pheatmap)
 library(ggplot2)
 
@@ -46,7 +40,7 @@ imap_20_fil <- CreateSeuratObject(counts = imap_20k, project = "imap", min.cells
 
 saveRDS(imap_20_fil,'imap_20_fil.RDS')
 
-imap_20_fil<-NormalizeData(imap_20_fil, normalization.method = "LogNormalize", scale.factor = 10000)
+imap_20_fil<-NormalizeData(imap_20_fil, normalization.method = "LogNormalize", scale.factor = 5000)
 
 # Identification of highly variable features (feature selection)
 imap_20_fil <- FindVariableFeatures(imap_20_fil, selection.method = "vst", nfeatures = 5000)
