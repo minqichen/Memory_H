@@ -20,7 +20,7 @@ adata = imap.stage1.data_preprocess(adata, 'batch',n_top_genes=20000)
 
 
 ### Stage I
-EC, ec_data = imap.stage1.iMAP_fast(adata, key="batch", n_epochs=100) 
+EC, ec_data = imap.stage1.iMAP_fast(adata, key="batch", n_epochs=150) 
 ### Stage II
 output_results = imap.stage2.integrate_data(adata, ec_data, n_epochs=150)
 output11=pd.DataFrame(output_results)
